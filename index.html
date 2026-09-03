@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <meta name="theme-color" content="#f4efe6" id="meta-theme-color" />
+    <meta name="color-scheme" content="light dark" />
+    <script>
+      (function () {
+        var theme = "light";
+        try {
+          var saved = localStorage.getItem("mb-theme");
+          if (saved === "light" || saved === "dark") theme = saved;
+        } catch (e) {}
+        document.documentElement.setAttribute("data-theme", theme);
+        document.documentElement.style.colorScheme = theme;
+      })();
+    </script>
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <title>Model Benchmarking Q2 2026 · Frontier Intelligence Report</title>
+    <meta
+      name="description"
+      content="Q2 2026 frontier model benchmarking: how Terminal-Bench, SWE-Pro, DeepSWE, HLE, GPQA and OSWorld are scored, plus specs and use-case fit for Hy4, Kimi K3, Claude Fable/Mythos 5.1, GLM-5.3 Flash, Gemini 3.8 Flash, GPT-5.6 Cyber, Muse Glimmer and Qwen3.8-Max."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,360;9..144,500&family=IBM+Plex+Mono:wght@400;500&family=Manrope:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body>
+    <a class="skip" href="#models">Skip to models</a>
+    <div class="orb" aria-hidden="true"></div>
+    <div class="grain" aria-hidden="true"></div>
+    <div class="nav-scrim" id="nav-scrim" hidden></div>
+
+    <header class="nav">
+      <div class="nav-inner">
+        <a class="brand" href="#top">
+          <span class="mark">Q2</span>
+          <span class="brand-copy">
+            <strong>Model Bench</strong>
+            <span>Frontier report 2026</span>
+          </span>
+        </a>
+        <nav aria-label="Primary">
+          <ul class="nav-links" id="nav-links">
+            <li><a href="#method">Method</a></li>
+            <li><a href="#models">Models</a></li>
+            <li><a href="#benches">Benches</a></li>
+            <li><a href="#charts">Charts</a></li>
+            <li><a href="#table">Scores</a></li>
+            <li><a href="#findings">Findings</a></li>
+            <li><a href="#usecases">Use cases</a></li>
+            <li><a href="#specs">Technical</a></li>
+            <li><a href="#pricing">Pricing</a></li>
+          </ul>
+        </nav>
+        <div class="nav-tools">
+          <div class="theme-switch" role="group" aria-label="Color theme">
+            <button type="button" class="theme-opt" data-theme-set="light" id="theme-light" aria-pressed="true">
+              Light
+            </button>
+            <button type="button" class="theme-opt" data-theme-set="dark" id="theme-dark" aria-pressed="false">
+              Dark
+            </button>
+          </div>
+          <a class="nav-cta" href="#methodology">Sources</a>
+          <button
+            class="menu-btn"
+            id="menu-btn"
+            type="button"
+            aria-label="Open menu"
+            aria-controls="nav-links"
+            aria-expanded="false"
+          >
+            Menu
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main id="top">
+      <section class="hero">
+        <div class="wrap">
+          <div class="kicker">Independent compilation · 3 September 2026</div>
+          <h1>Model Benchmarking <em>Q2 2026</em></h1>
+          <p class="lede">
+            Nine recently launched frontier systems compared the way a buying team should: not as a
+            single leaderboard, but as a set of tests that map to jobs — CLI coding agents, repo
+            repair, long-horizon engineering, science, computer use, knowledge, and cost-to-serve —
+            with the harness, effort level, and licence spelled out beside every number.
+          </p>
+          <div class="hero-actions">
+            <a class="btn btn-gold" href="#method">How we benchmark</a>
+            <a class="btn btn-ghost" href="#benches">Read each test</a>
+          </div>
+          <div class="stats">
+            <div class="stat"><b>9</b><span>Latest-generation models</span></div>
+            <div class="stat"><b>10</b><span>Public evals unpacked</span></div>
+            <div class="stat"><b>1M</b><span>Context class for 7 of 9 models</span></div>
+            <div class="stat"><b>$0.15</b><span>Lowest API input (GLM-5.3 Flash)</span></div>
+          </div>
+        </div>
+      </section>
+
+      <hr class="rule" />
+
+      <section id="method">
+        <div class="wrap">
+          <div class="section-head">
+            <div>
+              <div class="kicker">Method</div>
+              <h2>How this benchmarking works</h2>
+            </div>
+            <p>
+              This report does not run a new live harness. It compiles vendor launch tables and
+              independent boards, then tells you when those two disagree — and what that means for
+              a real workload.
+            </p>
+          </div>
+          <div class="method-grid" id="method-grid"></div>
+          <div class="callout method-callout">
+            <h3>What “benchmarking” means here</h3>
+            <p>
+              A benchmark is a frozen task suite with a scoring rule. For language models in 2026
+              that usually means: give the model a repo, a terminal, a desktop, or an exam; let it
+              use tools (or not); count resolved tasks, pass@1, or pairwise Elo. The number is only
+              as good as the <em>protocol</em> — the agent scaffold, timeout, context window,
+              thinking effort, and whether safeguards were left on. We therefore never collapse
+              the field into one “IQ.” We show the protocol next to the score, mark the best cell
+              in this nine-model set in gold, and leave unpublished splits as dashes so specialists
+              are not fake-ranked at zero.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section id="models">
+        <div class="wrap">
+          <div class="section-head">
+            <div>
+              <div class="kicker">The field</div>
+              <h2>Nine models, one ledger</h2>
+            </div>
+            <p>
+              Tap any card for licence, serving floor, and fit. Filters isolate open weights,
+              hosted APIs, restricted cyber/science access, and local-first options.
+            </p>
+          </div>
+          <div class="toolbar" role="toolbar" aria-label="Filter models">
+            <button class="chip on" data-filter="all" type="button">All</button>
+            <button class="chip" data-filter="open" type="button">Open weights</button>
+            <button class="chip" data-filter="closed" type="button">Closed API</button>
+            <button class="chip" data-filter="restricted" type="button">Restricted access</button>
+            <button class="chip" data-filter="local" type="button">Local-capable</button>
+          </div>
+          <div class="grid" id="model-grid"></div>
+        </div>
+      </section>
+
+      <section id="benches">
+        <div class="wrap">
+          <div class="section-head">
+            <div>
+              <div class="kicker">The tests</div>
+              <h2>Every benchmark, explained</h2>
+            </div>
+            <p>
+              What the suite actually asks the model to do, how to read a high score, and the
+              footnote that stops you from mixing incompatible splits.
+            </p>
+          </div>
+          <div class="bench-grid" id="bench-grid"></div>
+        </div>
+      </section>
+
+      <section id="charts">
+        <div class="wrap">
+          <div class="section-head">
+            <div>
+              <div class="kicker">Performance</div>
+              <h2>Where the numbers actually move</h2>
+            </div>
+            <p>
+              Radar axes are percent-scale public benches. Missing cells are omitted, not zeroed.
+              Switch the bar chart to inspect one eval at a time. On a phone, rotate or scroll —
+              charts reflow with the viewport.
+            </p>
+          </div>
+          <div class="chart-grid">
+            <div class="chart-panel">
+              <div class="chart-toolbar">
+                <strong>Capability radar</strong>
+                <div class="toggles" id="radar-toggles"></div>
+              </div>
+              <div class="chart-box">
+                <canvas id="radar-chart" role="img" aria-label="Capability radar chart"></canvas>
+                <p class="chart-fallback" id="radar-fallback" hidden>
+                  Charts need JavaScript and a current browser (Chrome, Firefox, Safari, Edge, Samsung Internet). The score table below has the same numbers.
+                </p>
+              </div>
+              <p class="note">GDPval is Elo, so it stays off the radar. GPT-5.6 Cyber has no public general-coding board — see Technical details.</p>
+            </div>
+            <div class="chart-panel">
+              <div class="chart-toolbar">
+                <strong>Benchmark slice</strong>
+                <label class="sr-only" for="bar-select">Select benchmark</label>
+                <select id="bar-select"></select>
+              </div>
+              <div class="chart-box">
+                <canvas id="bar-chart" role="img" aria-label="Benchmark bar chart"></canvas>
+                <p class="chart-fallback" id="bar-fallback" hidden>
+                  Bar chart unavailable. Use the explained tests above and the score cards below.
+                </p>
+              </div>
+              <p class="note">Fable / Mythos publish Terminal-Bench 4.0, not 2.1. Those rows appear when you select TB 4.0 or Science.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="table">
+        <div class="wrap">
+          <div class="section-head">
+            <div>
+              <div class="kicker">Scoreboard</div>
+              <h2>Head-to-head, sortable</h2>
+            </div>
+            <p>
+              Gold figures are the best published number in this set for that column. Dashes mean
+              not published on a comparable split. Phones get stacked score cards; wider screens
+              get the full table (swipe sideways if needed).
+            </p>
+          </div>
+          <div class="score-cards" id="score-cards" aria-label="Mobile score cards"></div>
+          <p class="swipe-hint" id="swipe-hint">Swipe the table sideways to see every column.</p>
+          <div class="table-wrap" tabindex="0" aria-label="Sortable benchmark table">
+            <table id="bench-table"></table>
+          </div>
+        </div>
+      </section>
+
+      <section id="findings">
+        <div class="wrap">
+          <div class="section-head">
+            <div>
+              <div class="kicker">Read-out</div>
+              <h2>What the benches actually say</h2>
+            </div>
+            <p>Four conclusions that survive the footnotes — and should change who you default to.</p>
+          </div>
+          <div class="findings-grid" id="findings-grid"></div>
+        </div>
+      </section>
+
+      <section id="usecases">
+        <div class="wrap">
+          <div class="section-head">
+            <div>
+              <div class="kicker">Fit, not hype</div>
+              <h2>Which model for which job</h2>
+            </div>
+            <p>Primary pick plus a practical alternative. Restricted models are only recommended where access is real.</p>
+          </div>
+          <div class="usecase-grid" id="usecase-grid"></div>
+        </div>
+      </section>
+
+      <section id="specs">
+        <div class="wrap">
+          <div class="section-head">
+            <div>
+              <div class="kicker">Architecture</div>
+              <h2>Parameters &amp; technical details</h2>
+            </div>
+            <p>MoE vs dense, attention recipes, licences, serving floors, and the limits vendors themselves publish.</p>
+          </div>
+          <div class="spec-layout">
+            <div class="spec-nav" id="spec-nav" role="tablist" aria-label="Select a model"></div>
+            <div class="spec-body" id="spec-body" role="tabpanel"></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="pricing">
+        <div class="wrap">
+          <div class="section-head">
+            <div>
+              <div class="kicker">Economics</div>
+              <h2>List price per million tokens</h2>
+            </div>
+            <p>USD list rates at launch. Cache hits, batch, and intro windows change the real bill — especially for Fable 5.1 and Gemini 3.8 Flash.</p>
+          </div>
+          <div class="price-grid">
+            <div id="price-list"></div>
+            <aside class="callout">
+              <h3>How to read cost</h3>
+              <p>
+                GLM-5.3 Flash is the unit-cost floor. Hy4 Preview is the cheap Apache-2.0 API. Gemini 3.8 Flash is the speed/price workhorse until 31 Dec 2026, when rates double. Fable 5.1 looks expensive on stickers ($10 / $50) but cache reads at $0.25 cut typical agent TCO by about 25% and up to about 45% on long runs. GPT-5.6 Cyber is a specialist tax ($12.50 / $75), not a default coding model. Muse Glimmer’s price is hardware and electricity.
+              </p>
+            </aside>
+          </div>
+        </div>
+      </section>
+
+      <section id="methodology">
+        <div class="wrap">
+          <div class="section-head">
+            <div>
+              <div class="kicker">Provenance</div>
+              <h2>Sources &amp; limits</h2>
+            </div>
+            <p>Compiled professional brief. Re-run your own workload before a purchase.</p>
+          </div>
+          <div class="sources" id="sources"></div>
+          <p class="disclaimer" id="disclaimer-copy">
+            Harness choice (Claude Code, mini-swe-agent, Terminus, OpenClaw) moves agent scores by more than most model-to-model gaps. Effort levels (max / xhigh / high) are not equivalent across labs. Claude Fable 5.1 and Mythos 5.1 share weights; the published gap on Terminal-Bench 4.0 (55.8 vs 60.9) is largely safeguard policy. Restricted cyber models are scored on completion/refusal and specialist gyms, not SWE-Pro. Browser support: modern evergreen Chrome, Edge, Firefox, Safari (iOS 15+), Samsung Internet, and Opera. Charts require JavaScript; the tables and score cards remain readable if a chart library is blocked.
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="wrap footer-grid">
+        <div>
+          <h2>Model Benchmarking Q2 2026</h2>
+          <p class="credit">Designed &amp; Developed By: <strong>Prateek Dutta</strong></p>
+          <small>Copyright © <span id="year">2026</span>. All rights reserved.</small>
+        </div>
+        <div>
+          <p>Coverage: Hy4 Preview, Moonshot Kimi K3, Claude Fable 5.1, Claude Mythos 5.1, GLM-5.3 Flash, Gemini 3.8 Flash, GPT-5.6 Cyber, Muse Glimmer, Qwen3.8-Max.</p>
+        </div>
+        <div>
+          <p>Figures cited from lab launch posts and independent boards as of 3 September 2026. Not affiliated with the model providers. Layout tested for phones, tablets, laptops, and desktops.</p>
+        </div>
+      </div>
+    </footer>
+
+    <div class="modal" id="modal" role="dialog" aria-modal="true" aria-hidden="true">
+      <div class="modal-card" id="modal-body"></div>
+    </div>
+
+    <noscript>
+      <div class="noscript">
+        This report’s tables and write-ups work without JavaScript if you view the source data files.
+        Enable JavaScript for interactive filters, charts, and the model switcher.
+      </div>
+    </noscript>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js" defer></script>
+    <script src="js/data.js" defer></script>
+    <script src="js/app.js" defer></script>
+  </body>
+</html>
