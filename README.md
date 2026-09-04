@@ -1,6 +1,6 @@
 # Model Benchmarking Q2 2026
 
-A static HTML/CSS/JS report comparing nine recently launched frontier models: specs, public benchmarks, pricing, and which job each one is actually built for.
+A static HTML/CSS/JS report tracking ten frontier models: specs, public benchmarks, pricing, and which job each one is actually built for. Entries without primary-source evidence are clearly marked as unpublished.
 
 **Designed & Developed By: Prateek Dutta**  
 Copyright © 2026. All rights reserved.
@@ -29,6 +29,7 @@ Then visit the URL printed in the terminal.
 | GLM-5.3 Flash | Z.ai (Zhipu) | Open weights (MIT) + API |
 | Gemini 3.8 Flash | Google DeepMind | Generally available API |
 | GPT-5.6 Cyber | OpenAI | Daybreak Red (restricted) |
+| GPT 6 Astra | OpenAI | Unannounced; awaiting primary-source verification |
 | Muse Glimmer 30B | Meta | Open weights, consumer GPU |
 | Qwen3.8-Max | Alibaba Qwen | API + open weights (custom licence) |
 
