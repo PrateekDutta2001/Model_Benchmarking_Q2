@@ -34,6 +34,7 @@
   }
 
   function priceLabel(model) {
+    if (model.priceIn == null || model.priceOut == null) return "Unpublished";
     if (model.priceIn === 0 && model.priceOut === 0) return "Local / $0 API";
     return "$" + fmt(model.priceIn, 2) + " / $" + fmt(model.priceOut, 2);
   }
@@ -594,9 +595,13 @@
           '</td><td class="num">' +
           m.paramsTotal +
           '</td><td class="num">' +
-          m.contextK +
-          'K</td><td class="num">' +
-          (m.priceIn === 0 ? "local" : fmt(m.priceIn, 2) + " / " + fmt(m.priceOut, 2)) +
+          (m.contextK == null ? "—" : fmt(m.contextK) + "K") +
+          '</td><td class="num">' +
+          (m.priceIn == null || m.priceOut == null
+            ? "—"
+            : m.priceIn === 0
+              ? "local"
+              : fmt(m.priceIn, 2) + " / " + fmt(m.priceOut, 2)) +
           "</td>" +
           cells +
           "<td>" +
@@ -793,23 +798,24 @@
       if (MODELS[i].priceOut > maxOut) maxOut = MODELS[i].priceOut;
     }
     host.innerHTML = MODELS.map(function (m) {
-      var inW = m.priceIn === 0 ? 2 : (m.priceIn / 12.5) * 100;
-      var outW = m.priceOut === 0 ? 2 : (m.priceOut / maxOut) * 100;
+      var hasPrice = m.priceIn != null && m.priceOut != null;
+      var inW = !hasPrice ? 0 : m.priceIn === 0 ? 2 : (m.priceIn / 12.5) * 100;
+      var outW = !hasPrice ? 0 : m.priceOut === 0 ? 2 : (m.priceOut / maxOut) * 100;
       return (
         '<article class="price-card"><header><strong>' +
         m.name +
         '</strong><span class="num">' +
         priceLabel(m) +
         '</span></header><div class="bars" style="margin-top:12px">' +
-        '<div class="bar-row"><span><span>Input</span><span>$' +
-        fmt(m.priceIn, 2) +
+        '<div class="bar-row"><span><span>Input</span><span>' +
+        (hasPrice ? "$" + fmt(m.priceIn, 2) : "—") +
         '</span></span><div class="track"><div class="fill" style="width:' +
         inW +
         "%;background:" +
         m.color +
         '"></div></div></div>' +
-        '<div class="bar-row"><span><span>Output</span><span>$' +
-        fmt(m.priceOut, 2) +
+        '<div class="bar-row"><span><span>Output</span><span>' +
+        (hasPrice ? "$" + fmt(m.priceOut, 2) : "—") +
         '</span></span><div class="track"><div class="fill" style="width:' +
         outW +
         "%;background:" +
