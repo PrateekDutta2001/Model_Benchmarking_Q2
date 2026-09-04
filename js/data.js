@@ -643,6 +643,65 @@ const MODELS = [
       hle: "Text, vendor table vs Fable 5",
     },
   },
+  {
+    id: "gpt6astra",
+    short: "GPT 6 Astra",
+    name: "GPT 6 Astra",
+    vendor: "OpenAI",
+    released: "Unannounced",
+    tag: "Awaiting verification",
+    color: "#10a37f",
+    access: "No verified public access",
+    openness: "Closed",
+    license: "Not published",
+    architecture: "Not published",
+    paramsTotal: "Undisclosed",
+    paramsActive: "Undisclosed",
+    layers: "—",
+    experts: "—",
+    context: "Unpublished",
+    contextK: null,
+    maxOut: "Unpublished",
+    modalities: "Unpublished",
+    reasoning: "Unpublished",
+    knowledge: "Unpublished",
+    priceIn: null,
+    priceOut: null,
+    priceCache: null,
+    speedNote: "No verified serving or latency information",
+    apiId: "Not published",
+    host: "No verified public endpoint",
+    hardware: "Hosted status not announced",
+    architectureNotes: [
+      "GPT 6 Astra is included as an unverified placeholder requested for this report.",
+      "Specifications will remain unpublished until a primary OpenAI source is available.",
+    ],
+    strengths: [
+      "No verified capability claims are available yet",
+    ],
+    limits: [
+      "No primary launch source, public benchmark results, or pricing",
+      "Not suitable for procurement comparisons in its current placeholder state",
+    ],
+    bestFor: [
+      "Tracking a future announcement once primary evidence is available",
+    ],
+    notFor: [
+      "Production selection or benchmark ranking",
+      "Cost, architecture, or capability comparisons",
+    ],
+    scores: {
+      tb21: null,
+      swePro: null,
+      deepswe: null,
+      gpqa: null,
+      hle: null,
+      osworld: null,
+      gdpval: null,
+      aaIndex: null,
+    },
+    scoreNotes: {},
+  },
 ];
 
 const BENCHMARKS = [
@@ -795,7 +854,7 @@ const METHOD_STEPS = [
   },
   {
     title: "2. Separate vendor tables from independent boards",
-    body: "Launch blogs run their own harness, effort, and sometimes their own scaffold. Where Artificial Analysis, vals.ai, DeepSWE’s board, or BenchLM published a number, we prefer it and footnote the vendor figure. Gold cells are the best published number inside this nine-model set — not a claim of a global SOTA.",
+    body: "Launch blogs run their own harness, effort, and sometimes their own scaffold. Where Artificial Analysis, vals.ai, DeepSWE’s board, or BenchLM published a number, we prefer it and footnote the vendor figure. Gold cells are the best published number inside this ten-model set — not a claim of a global SOTA.",
   },
   {
     title: "3. Hold effort and tools constant — or label when you cannot",
@@ -826,7 +885,7 @@ const FINDINGS = [
   },
   {
     title: "Long context is now table stakes; serving it is not",
-    body: "Seven of nine models advertise a ~1M token window. That does not mean they recall a million tokens equally, or that you can host them. Kimi K3 is 1.56 TB of MXFP4. Hy4 wants an 8-GPU node. GLM Flash is the first multimodal 1M model you might actually serve. Muse is 131K on purpose so a 24GB card can hold the KV cache.",
+    body: "Seven of ten models advertise a ~1M token window. That does not mean they recall a million tokens equally, or that you can host them. Kimi K3 is 1.56 TB of MXFP4. Hy4 wants an 8-GPU node. GLM Flash is the first multimodal 1M model you might actually serve. Muse is 131K on purpose so a 24GB card can hold the KV cache. GPT 6 Astra remains unpublished and is excluded from this context comparison.",
   },
 ];
 
